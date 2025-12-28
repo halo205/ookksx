@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Indah</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#fce4ec;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+}
+.container{
+    width:85%;
+    max-width:400px;
+    background:#fff;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+    z-index:10;
+}
+.slide{display:none;animation:fade .5s}
+.active{display:block}
+h1{color:#d81b60}
+p{color:#555}
+.img-container{
+    height:200px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.img-container img{
+    max-width:100%;
+    max-height:100%;
+    border-radius:15px;
+}
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    background:#d81b60;
+    color:#fff;
+    border:none;
+    border-radius:50px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* BALLOON */
+.balloon{
+    position:absolute;
+    bottom:-100px;
+    width:40px;
+    height:55px;
+    background:#ff80ab;
+    border-radius:50%;
+    opacity:.6;
+    animation:float 7s infinite;
+}
+.balloon::after{
+    content:"";
+    position:absolute;
+    bottom:-10px;
+    left:19px;
+    width:2px;
+    height:20px;
+    background:#999;
+}
+
+@keyframes float{
+    to{transform:translateY(-110vh);opacity:0}
+}
+@keyframes fade{
+    from{opacity:0;transform:scale(.9)}
+    to{opacity:1}
+}
+
+/* HEART */
+.heart{
+    position:absolute;
+    font-size:18px;
+    animation:heartFloat 4s linear;
+}
+@keyframes heartFloat{
+    from{transform:translateY(0);opacity:1}
+    to{transform:translateY(-100vh);opacity:0}
+}
+</style>
+</head>
+
+<body onclick="playMusic()">
+
+<audio id="bgMusic" loop>
+  <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-108.mp3">
+</audio>
+
+<div class="balloon" style="left:15%"></div>
+<div class="balloon" style="left:45%;animation-delay:2s"></div>
+<div class="balloon" style="left:75%;animation-delay:4s"></div>
+
+<div class="container">
+
+<!-- SLIDE 1 -->
+<div class="slide active" id="slide1">
+    <div class="img-container">
+        <img src="https://media.giphy.com/media/ASd0Ukj0y3qMM/giphy.gif">
+    </div>
+    <h1>Halo Indah ✨</h1>
+    <button onclick="nextSlide(2)">Klik di sini</button>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide" id="slide2">
+    <div class="img-container">
+        <img src="https://media.giphy.com/media/111ebonMs90YLu/giphy.gif">
+    </div>
+    <h1>Selamat ya 🥳</h1>
+    <p>Kamu juara 1 <b>Best Trainee</b> 🎉</p>
+    <button onclick="confetti(); nextSlide(3)">Lanjut</button>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide" id="slide3">
+    <div class="img-container">
+        <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+    </div>
+    <h1>Proud of You ❤️</h1>
+    <p>Kerja keras kamu benar-benar kelihatan ✨</p>
+    <button onclick="nextSlide(4)">Lanjut</button>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide" id="slide4">
+    <div class="img-container">
+        <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif">
+    </div>
+    <h1>Kamu Luar Biasa ⭐</h1>
+    <p>Terus bersinar dan jangan ragu sama diri sendiri 💖</p>
+</div>
+
+</div>
+
+<script>
+let played=false;
+function playMusic(){
+  if(!played){
+    document.getElementById("bgMusic").play();
+    played=true;
+  }
+}
+
+function nextSlide(n){
+  document.querySelectorAll(".slide").forEach(s=>s.classList.remove("active"));
+  document.getElementById("slide"+n).classList.add("active");
+}
+
+function confetti(){
+  for(let i=0;i<20;i++){
+    let heart=document.createElement("div");
+    heart.innerHTML="💖";
+    heart.className="heart";
+    heart.style.left=Math.random()*100+"%";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),4000);
+  }
+}
+</script>
+
+</body>
+</html>
